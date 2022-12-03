@@ -23,6 +23,6 @@ if __name__ == "__main__":
     assert file.is_file(), f'input file "{file}" is not a file'
 
     with file.open() as fd:
-        print(advent(fd.read(())))
+        print(advent(fd.read()))
 
     sys.exit(0)
