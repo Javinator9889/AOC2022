@@ -1,0 +1,4 @@
+start: "move" INT~1 "from" INT~1 "to" INT~1
+
+%import common.INT
+%ignore " "
