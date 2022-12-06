@@ -139,15 +139,74 @@ def advent_p1(input: str) -> str:
         picked = (stack.popleft() for _ in range(move.amount))
         crates[move.to - 1].extendleft(picked)
 
-    res = []
-    for crate in crates:
-        res.append(crate.popleft())
-
-    return "".join(res)
+    return "".join(crate.popleft() for crate in crates)
 
 
 def advent_p2(input: str) -> str:
-    raise NotImplementedError("This method must be overridden")
+    """
+    As you watch the crane operator expertly rearrange the crates, you notice the process
+    isn't following your prediction.
+
+    Some mud was covering the writing on the side of the crane, and you quickly wipe it away.
+    The crane isn't a CrateMover 9000 - it's a CrateMover 9001.
+
+    The CrateMover 9001 is notable for many new and exciting features: air conditioning,
+    leather seats, an extra cup holder, and the ability to pick up and move multiple crates at once.
+
+    Again considering the example above, the crates begin in the same configuration::
+
+            [D]
+        [N] [C]
+        [Z] [M] [P]
+         1   2   3
+
+    Moving a single crate from stack 2 to stack 1 behaves the same as before::
+
+        [D]
+        [N] [C]
+        [Z] [M] [P]
+         1   2   3
+
+    However, the action of moving three crates from stack 1 to stack 3 means that those three
+    moved crates stay in the same order, resulting in this new configuration::
+
+                [D]
+                [N]
+            [C] [Z]
+            [M] [P]
+         1   2   3
+
+    Next, as both crates are moved from stack 2 to stack 1, they retain their order as well::
+
+                [D]
+                [N]
+        [C]     [Z]
+        [M]     [P]
+         1   2   3
+
+    Finally, a single crate is still moved from stack 1 to stack 2, but now it's crate C that gets moved::
+
+                [D]
+                [N]
+                [Z]
+        [M] [C] [P]
+         1   2   3
+
+    In this example, the CrateMover 9001 has put the crates in a totally different order: MCD.
+
+    Before the rearrangement process finishes, update your simulation so that the Elves know where
+    they should stand to be ready to unload the final supplies. After the rearrangement procedure completes,
+    what crate ends up on top of each stack?
+    """
+    crates, moves = parse_input(input)
+    for move in moves:
+        stack = crates[move.from_i - 1]
+        picked = [stack.popleft() for _ in range(move.amount)]
+        # as items are insert in exactly the same order, just reverse the list before
+        # left-adding them
+        crates[move.to - 1].extendleft(picked[::-1])
+
+    return "".join(crate.popleft() for crate in crates)
 
 
 if __name__ == "__main__":
