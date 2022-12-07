@@ -289,7 +289,7 @@ def advent_p1(input: str) -> str:
                 sizes.append(dir_len)
 
     return f"{sum(sizes)}"
-                
+
 
 def advent_p2(input: str) -> str:
     """
