@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import sys
 import typing
-
 from enum import Enum
 from pathlib import Path
 
@@ -52,8 +51,8 @@ def advent_p1(input: str) -> str:
           is lowercase ``p``.
         * The second rucksack's compartments contain ``jqHRNqRjqzjGDLGL`` and ``rsFMfFZSrLrFZsSL``.
           The only item type that appears in both compartments is uppercase ``L``.
-        * The third rucksack's compartments contain ``PmmdzqPrV`` and ``vPwwTWBwg``; the only common
-          item type is uppercase ``P``.
+        * The third rucksack's compartments contain ``PmmdzqPrV`` and ``vPwwTWBwg``; the only
+          common item type is uppercase ``P``.
         * The fourth rucksack's compartments only share item type ``v``.
         * The fifth rucksack's compartments only share item type ``t``.
         * The sixth rucksack's compartments only share item type ``s``.
@@ -63,8 +62,8 @@ def advent_p1(input: str) -> str:
         * Lowercase item types ``a`` through ``z`` have priorities 1 through 26.
         * Uppercase item types ``A`` through ``Z`` have priorities 27 through 52.
 
-    In the above example, the priority of the item type that appears in both compartments of each rucksack
-    is 16 (p), 38 (L), 42 (P), 22 (v), 20 (t), and 19 (s); the sum of these is 157.
+    In the above example, the priority of the item type that appears in both compartments of
+    each rucksack is 16 (p), 38 (L), 42 (P), 22 (v), 20 (t), and 19 (s); the sum of these is 157.
 
     Find the item type that appears in both compartments of each rucksack.
     What is the sum of the priorities of those item types?
@@ -73,11 +72,12 @@ def advent_p1(input: str) -> str:
     repeated_items: list[str] = []
     for rucksack in data:
         sack_len = len(rucksack)
-        first_half, second_half = set(rucksack[:sack_len // 2]), set(rucksack[sack_len // 2:])
+        first_half, second_half = set(rucksack[: sack_len // 2]), set(rucksack[sack_len // 2 :])
         if len(repeated := (first_half & second_half)) >= 1:
             repeated_items.extend(repeated)
 
-    return sum((ord(v.lower()) - 97 + (27 if v.isupper() else 1) for v in repeated_items))
+    return str(sum((ord(v.lower()) - 97 + (27 if v.isupper() else 1) for v in repeated_items)))
+
 
 def advent_p2(input: str) -> str:
     """
@@ -115,7 +115,8 @@ def advent_p2(input: str) -> str:
     this must be their badges. In the second group, their badge item type must be Z.
 
     Priorities for these items must still be found to organize the sticker attachment efforts:
-    here, they are 18 (r) for the first group and 52 (Z) for the second group. The sum of these is 70.
+    here, they are 18 (r) for the first group and 52 (Z) for the second group. The sum of these is
+    70.
 
     Find the item type that corresponds to the badges of each three-Elf group.
     What is the sum of the priorities of those item types?
@@ -123,7 +124,7 @@ def advent_p2(input: str) -> str:
     data = input.splitlines()
     groups = ((set(data[i]), set(data[i + 1]), set(data[i + 2])) for i in range(0, len(data), 3))
     repeated_items = ((s1 & s2 & s3).pop() for s1, s2, s3 in groups)
-    return sum((ord(v.lower()) - 97 + (27 if v.isupper() else 1) for v in repeated_items))
+    return str(sum((ord(v.lower()) - 97 + (27 if v.isupper() else 1) for v in repeated_items)))
 
 
 if __name__ == "__main__":

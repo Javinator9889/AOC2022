@@ -28,6 +28,8 @@ repos:
     rev: v2.15.8
     hooks:
       - id: pylint
+        args:
+          - --rcfile=setup.cfg
         additional_dependencies:
           - numpy
           - lark

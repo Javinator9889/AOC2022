@@ -4,15 +4,13 @@ from __future__ import annotations
 
 import sys
 import typing
-
-import numpy as np
-import numpy.ma as ma
-
 from collections import deque, namedtuple
 from enum import Enum
 from pathlib import Path
 
+import numpy as np
 from lark import Lark
+from numpy import ma
 
 if typing.TYPE_CHECKING:
     ...
@@ -151,7 +149,8 @@ def advent_p2(input: str) -> str:
     The crane isn't a CrateMover 9000 - it's a CrateMover 9001.
 
     The CrateMover 9001 is notable for many new and exciting features: air conditioning,
-    leather seats, an extra cup holder, and the ability to pick up and move multiple crates at once.
+    leather seats, an extra cup holder, and the ability to pick up and move multiple crates at
+    once.
 
     Again considering the example above, the crates begin in the same configuration::
 
@@ -184,7 +183,8 @@ def advent_p2(input: str) -> str:
         [M]     [P]
          1   2   3
 
-    Finally, a single crate is still moved from stack 1 to stack 2, but now it's crate C that gets moved::
+    Finally, a single crate is still moved from stack 1 to stack 2, but now it's crate C that gets
+    moved::
 
                 [D]
                 [N]
@@ -195,8 +195,8 @@ def advent_p2(input: str) -> str:
     In this example, the CrateMover 9001 has put the crates in a totally different order: MCD.
 
     Before the rearrangement process finishes, update your simulation so that the Elves know where
-    they should stand to be ready to unload the final supplies. After the rearrangement procedure completes,
-    what crate ends up on top of each stack?
+    they should stand to be ready to unload the final supplies. After the rearrangement procedure
+    completes, what crate ends up on top of each stack?
     """
     crates, moves = parse_input(input)
     for move in moves:

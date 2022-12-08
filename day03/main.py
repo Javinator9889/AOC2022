@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import sys
 import typing
-
 from enum import Enum
 from pathlib import Path
 
@@ -40,12 +39,14 @@ def advent_p1(input: str) -> str:
     For the first few pairs, this list means:
 
         * Within the first pair of Elves, the first Elf was assigned sections 2-4
-          (sections 2, 3, and 4), while the second Elf was assigned sections 6-8 (sections 6, 7, 8).
+          (sections 2, 3, and 4), while the second Elf was assigned sections 6-8
+          (sections 6, 7, 8).
         * The Elves in the second pair were each assigned two sections.
-        * The Elves in the third pair were each assigned three sections: one got sections 5, 6, and 7,
-          while the other also got 7, plus 8 and 9.
-        * This example list uses single-digit section IDs to make it easier to draw; your actual list
-          might contain larger numbers. Visually, these pairs of section assignments look like this::
+        * The Elves in the third pair were each assigned three sections: one got sections 5, 6,
+          and 7, while the other also got 7, plus 8 and 9.
+        * This example list uses single-digit section IDs to make it easier to draw; your actual
+          list might contain larger numbers. Visually, these pairs of section assignments look like
+          this::
 
             .234.....  2-4
             .....678.  6-8
@@ -65,10 +66,11 @@ def advent_p1(input: str) -> str:
             .23456...  2-6
             ...45678.  4-8
 
-    Some of the pairs have noticed that one of their assignments fully contains the other. For example,
-    2-8 fully contains 3-7, and 6-6 is fully contained by 4-6. In pairs where one assignment fully contains the other,
-    one Elf in the pair would be exclusively cleaning sections their partner will already be cleaning,
-    so these seem like the most in need of reconsideration. In this example, there are 2 such pairs.
+    Some of the pairs have noticed that one of their assignments fully contains the other. For
+    example, 2-8 fully contains 3-7, and 6-6 is fully contained by 4-6. In pairs where one
+    assignment fully contains the other, one Elf in the pair would be exclusively cleaning sections
+    their partner will already be cleaning, so these seem like the most in need of reconsideration.
+    In this example, there are 2 such pairs.
 
     In how many assignment pairs does one range fully contain the other?
     """
@@ -77,7 +79,9 @@ def advent_p1(input: str) -> str:
     for line in data:
         p0, p1 = line.split(",")
         p0, p1 = p0.split("-"), p1.split("-")
-        pairs.append((set(range(int(p0[0]), int(p0[1]) + 1)), set(range(int(p1[0]), int(p1[1]) + 1))))
+        pairs.append(
+            (set(range(int(p0[0]), int(p0[1]) + 1)), set(range(int(p1[0]), int(p1[1]) + 1)))
+        )
 
     fully_contained_pairs = 0
     for p0, p1 in pairs:
@@ -109,7 +113,9 @@ def advent_p2(input: str) -> str:
     for line in data:
         p0, p1 = line.split(",")
         p0, p1 = p0.split("-"), p1.split("-")
-        pairs.append((set(range(int(p0[0]), int(p0[1]) + 1)), set(range(int(p1[0]), int(p1[1]) + 1))))
+        pairs.append(
+            (set(range(int(p0[0]), int(p0[1]) + 1)), set(range(int(p1[0]), int(p1[1]) + 1)))
+        )
 
     overlapped_ranges = 0
     for p0, p1 in pairs:

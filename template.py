@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import sys
 import typing
-
 from enum import Enum
 from pathlib import Path
 

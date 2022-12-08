@@ -4,12 +4,11 @@ from __future__ import annotations
 
 import sys
 import typing
-
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
-from typing import cast, TypeVar
+from typing import TypeVar, cast
 
 if typing.TYPE_CHECKING:
     from typing import Iterator
@@ -90,8 +89,8 @@ class Directory(FileDescriptor):
 
     def __len__(self) -> int:
         size = 0
-        for file in self.contents:
-            size += len(file)
+        for content in self.contents:
+            size += len(content)
 
         return size
 
@@ -136,7 +135,9 @@ class Directory(FileDescriptor):
     def __repr__(self) -> str:
         contents = [f"{' ' * self.indent_level} - {self.name} (dir)"]
         for content in self.contents:
-            prefix = f"{' ' * (self.indent_level + 2)} - " if not isinstance(content, Directory) else ""
+            prefix = (
+                f"{' ' * (self.indent_level + 2)} - " if not isinstance(content, Directory) else ""
+            )
             contents.append(f"{prefix}{repr(content)}")
 
         return "\n".join(contents)
@@ -254,23 +255,25 @@ def advent_p1(input: str) -> str:
     and e (which is in a). These directories also contain files of various sizes.
 
     Since the disk is full, your first step should probably be to find directories that are
-    good candidates for deletion. To do this, you need to determine the total size of each directory.
-    The total size of a directory is the sum of the sizes of the files it contains, directly or
-    indirectly. (Directories themselves do not count as having any intrinsic size.)
+    good candidates for deletion. To do this, you need to determine the total size of each
+    directory. The total size of a directory is the sum of the sizes of the files it contains,
+    directly or indirectly. (Directories themselves do not count as having any intrinsic size.)
 
     The total sizes of the directories above can be found as follows:
 
         * The total size of directory e is 584 because it contains a single file i of size 584
           and no other directories.
-        * The directory a has total size 94853 because it contains files f (size 29116), g (size 2557), and
-          h.lst (size 62596), plus file i indirectly (a contains e which contains i).
+        * The directory a has total size 94853 because it contains files f (size 29116), g
+          (size 2557), and h.lst (size 62596), plus file i indirectly (a contains e which
+          contains i).
         * Directory d has total size 24933642.
         * As the outermost directory, / contains every file. Its total size is 48381165, the sum
           of the size of every file.
 
     To begin, find all of the directories with a total size of at most 100000, then calculate the
     sum of their total sizes. In the example above, these directories are a and e; the sum of their
-    total sizes is 95437 (94853 + 584). (As in this example, this process can count files more than once!)
+    total sizes is 95437 (94853 + 584). (As in this example, this process can count files more than
+    once!)
 
     Find all of the directories with a total size of at most 100000.
     What is the sum of the total sizes of those directories?
@@ -301,8 +304,8 @@ def advent_p2(input: str) -> str:
 
     In the example above, the total size of the outermost directory (and thus the total amount
     of used space) is ``48381165``; this means that the size of the unused space must currently be
-    ``21618835``, which isn't quite the ``30000000`` required by the update. Therefore, the update still
-    requires a directory with total size of at least 8381165 to be deleted before it can run.
+    ``21618835``, which isn't quite the ``30000000`` required by the update. Therefore, the update
+    still requires a directory with total size of at least 8381165 to be deleted before it can run.
 
     To achieve this, you have the following options:
 
@@ -331,9 +334,9 @@ def advent_p2(input: str) -> str:
     if unused_space + tree_size >= size_to_free:
         sizes.append(tree_size)
 
-    for _, file in tree.itertree():
-        if isinstance(file, Directory):
-            if unused_space + (dir_len := len(file)) >= size_to_free:
+    for _, fg in tree.itertree():
+        if isinstance(fg, Directory):
+            if unused_space + (dir_len := len(fg)) >= size_to_free:
                 sizes.append(dir_len)
 
     return f"{min(sizes)}"
