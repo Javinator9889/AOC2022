@@ -1,0 +1,34 @@
+# Make sure that
+#   * the revs specified here match requirements-dev.txt
+#   * the additional_dependencies here match requirements.txt
+repos:
+  - repo: https://github.com/pycqa/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort
+        name: isort (python)
+      - id: isort
+        name: isort (cython)
+        types: [ cython ]
+      - id: isort
+        name: isort (pyi)
+        types: [ pyi ]
+  - repo: https://github.com/psf/black
+    rev: 22.10.0
+    hooks:
+      - id: black
+        args:
+          - --diff
+          - --check
+  - repo: https://github.com/PyCQA/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+  - repo: https://github.com/PyCQA/pylint
+    rev: v2.15.8
+    hooks:
+      - id: pylint
+        additional_dependencies:
+          - numpy
+          - lark
+          - . # this basically does `pip install -e .`
