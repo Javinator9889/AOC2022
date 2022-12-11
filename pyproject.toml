@@ -75,6 +75,7 @@ disable = [
     "W1514",
     "W0621",
     "W0212",
+    "W0123",
 ]
 
 [build-system]
