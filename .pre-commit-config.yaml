@@ -33,4 +33,5 @@ repos:
         additional_dependencies:
           - numpy
           - lark
+          - cython
           - . # this basically does `pip install -e .`

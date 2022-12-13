@@ -28,6 +28,8 @@ flake8-annotations-coverage = "^0.0.6"
 flake8-annotations = "^2.9.1"
 flake8-future-annotations = "^1.0.0"
 flake8-type-checking = "^2.3.0"
+cython = "^0.29.32"
+memray = "^1.5.0"
 
 [tool.black]
 line-length = 99
