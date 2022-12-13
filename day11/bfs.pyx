@@ -15,7 +15,6 @@ cpdef int bfs(np.ndarray view, pair[int, int] start, pair[int, int] end):
     cdef list[pair[int, int]] positions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
     cdef pair[int, int] node
     cdef pair[int, int] xy
-    cdef DTYPE_t a = ord("a")
 
     open_list.push_back(start)
     visited[start.first, start.second] = True
