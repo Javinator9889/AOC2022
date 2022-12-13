@@ -3,13 +3,12 @@ import cython
 import numpy as np
 
 cimport numpy as np
-from libcpp cimport bool
 from libcpp.deque cimport deque
 from libcpp.list cimport list
 from libcpp.pair cimport pair
 
 
-cpdef int bfs(np.ndarray view, pair[int, int] start, pair[int, int] end, bool is_part_2):
+cpdef int bfs(np.ndarray view, pair[int, int] start, pair[int, int] end):
     cdef deque[pair[int, int]] open_list
     cdef np.ndarray visited = np.zeros([view.shape[0], view.shape[1]], dtype=np.bool_)
     cdef np.ndarray cost = np.zeros([view.shape[0], view.shape[1]], dtype=np.uint32)
@@ -23,7 +22,7 @@ cpdef int bfs(np.ndarray view, pair[int, int] start, pair[int, int] end, bool is
 
     while open_list.size() > 0:
         node = open_list.front()
-        if (is_part_2 and view[node.first, node.second] == a) or node == end:
+        if node == end:
             return cost[node.first, node.second]
 
         for position in positions:

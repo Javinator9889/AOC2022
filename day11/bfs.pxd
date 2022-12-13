@@ -22,5 +22,5 @@ DTYPE = np.int32
 # type with a _t-suffix.
 ctypedef np.int32_t DTYPE_t
 
-cpdef int bfs(np.ndarray view, pair[int, int] start, pair[int, int] end, bool is_part_2)
+cpdef int bfs(np.ndarray view, pair[int, int] start, pair[int, int] end)
 cpdef int bfs_2(np.ndarray view, pair[int, int] start)
